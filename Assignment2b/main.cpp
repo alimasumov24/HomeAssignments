@@ -1,56 +1,28 @@
 #include<iostream>
-#include<sstream>
-#include<stack>
-#include<string>
-#include<cstdlib>
+#include "StackClass.h"
+#include <sstream>
+#include <vector>
 
+int main(){
+    std::string input_string;
+    std::cout << "Enter string:";
+    std::getline(std::cin, input_string);
 
-int evaluateRPN(const std::string&expression) {
-    std::stack<int> stack;
-    std::istringstream iss(expression);
-    std::string token;
+    std::istringstream iss(input_string);
+    std::vector<std::string> words;
+    std::string word;
 
-    while (iss >> token) {
-        if (isdigit(token[0]) || (token.size() > 1 && token[0] == '.')) {
-            stack.push(std::stoi(token));
-        } else {
-          int operand2 = stack.top(); stack.pop();
-          int operand1 = stack.top(); stack.pop();
-          switch (token[0]) {
-             case '+':
-                 stack.push(operand1 + operand2);
-                  break;
-             case '-':
-                  stack.push(operand1 - operand2);
-                  break;
-             case '*':
-                 stack.push(operand1 * operand2);
-                 break;
-              case '/':
-                 stack.push(operand1 / operand2);
-                  break;
-              default:
-                  throw std::runtime_error("Unknown operator");
-
-           }  
-
-        }         
-
+    while (iss >> word) {
+        words.push_back(word);
     }
-    return stack.top();
-}
 
-int main() {
-    std::string input;
-    std::cout << "Enter the expression in reverse Polish entry: ";
-    std::getline(std::cin, input);
+    StackClass stack = StackClass(words.size());
 
-    try {
-        int result = evaluateRPN(input);
-        std::cout << "Result: " << result << std::endl;
-    } catch (const std::exception& e){
-        std::cerr << "Mistake: " << e.what() << std::endl;
+    for (int i = 0; i < words.size(); ++i) {
+        stack.Push(words[i]);
     }
+
+    std::cout << stack.GetTopElement() << std::endl;
 
     return 0;
 }

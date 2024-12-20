@@ -1,8 +1,14 @@
 CXX = g++
-CXXFLAGS = -O2
-TARGET = main
-SRCS = main.cpp
-$(TARGET): $(SRCS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+TARGET = assig2b
+
+$(TARGET): main.o StackClass.o
+	g++ main.o StackClass.o -o $(TARGET)
+
+main.o: main.cpp
+	g++ -c main.cpp
+
+StackClass.o: StackClass.cpp
+	g++ -c StackClass.cpp
+
 clean:
-	rm -f $(TARGET)
+	rm -rf *.o $(TARGET)
