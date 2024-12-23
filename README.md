@@ -1,5 +1,7 @@
 # HomeAssignment
 # Create 
 Масумов Али
-#Mail
+# Mail
 masumovali5@gmail.com , st135767
+# Build
+make 
